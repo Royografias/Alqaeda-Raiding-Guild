@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermandad WoW - DKP y Gearscore</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0f3460;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        main {
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #16213e;
+            border-radius: 8px;
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table th, table td {
+            border: 1px solid #e94560;
+            padding: 10px;
+            text-align: center;
+        }
+        table th {
+            background-color: #e94560;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #0f3460;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .button {
+            background-color: #e94560;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+        .button:hover {
+            background-color: #a11c3a;
+        }
+        .search-bar {
+            margin: 20px 0;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #e94560;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hermandad: <span id="guild-name">Nombre Hermandad</span></h1>
+    </header>
+    <main>
+        <section class="section">
+            <h2>DKP y Gearscore de los Miembros</h2>
+
+            <div class="search-bar">
+                <input type="text" id="search-player" placeholder="Buscar jugador...">
+                <button class="button" onclick="searchPlayer()">Buscar</button>
+                <button class="button" onclick="showAll()">Mostrar Todos</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jugador</th>
+                        <th>Clase</th>
+                        <th>DKP</th>
+                        <th>Gearscore</th>
+                    </tr>
+                </thead>
+                <tbody id="dkp-table">
+                    <tr data-dkp="alta">
+                        <td>Jugador1</td>
+                        <td>Mago</td>
+                        <td>300</td>
+                        <td>4500</td>
+                    </tr>
+                    <tr data-dkp="media">
+                        <td>Jugador2</td>
+                        <td>Guerrero</td>
+                        <td>200</td>
+                        <td>4200</td>
+                    </tr>
+                    <tr data-dkp="baja">
+                        <td>Jugador3</td>
+                        <td>Pícaro</td>
+                        <td>100</td>
+                        <td>3900</td>
+                    </tr>
+                    <tr data-dkp="alta">
+                        <td>Jugador4</td>
+                        <td>Paladín</td>
+                        <td>350</td>
+                        <td>4700</td>
+                    </tr>
+                    <tr data-dkp="media">
+                        <td>Jugador5</td>
+                        <td>Cazador</td>
+                        <td>180</td>
+                        <td>4100</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer class="footer">
+        © 2024 Hermandad WoW. Todos los derechos reservados.
+    </footer>
+
+    <script>
+        // Función para mostrar jugadores según la categoría de DKP
+        function showCategory(category) {
+            const rows = document.querySelectorAll("#dkp-table tr");
+            rows.forEach(row => {
+                if (row.getAttribute("data-dkp") === category) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        // Función para mostrar todos los jugadores
+        function showAll() {
+            const rows = document.querySelectorAll("#dkp-table tr");
+            rows.forEach(row => {
+                row.style.display = "";
+            });
+        }
+
+        // Función para buscar un jugador específico
+        function searchPlayer() {
+            const input = document.getElementById("search-player").value.toLowerCase();
+            const rows = document.querySelectorAll("#dkp-table tr");
+
+            rows.forEach(row => {
+                const playerName = row.children[0].textContent.toLowerCase();
+                if (playerName.includes(input)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
